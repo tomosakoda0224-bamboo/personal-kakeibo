@@ -133,17 +133,18 @@ def render_calendar(start, end, daily_amounts):
         days.append(cursor)
         cursor += timedelta(days=1)
 
-    maximum = max(daily_amounts.values(), default=0)
     cells = []
 
     for day in days:
-        amount = int(daily_amounts.get(day.isoformat(), 0))
-        intensity = amount / maximum if maximum else 0
-        background = (
-            f"rgba(242,111,82,{0.08 + intensity * 0.55:.2f})"
-            if amount
-            else "#f7f7f3"
-        )
+        day_key = day.isoformat()
+        has_expense = day_key in daily_amounts
+        amount = int(daily_amounts.get(day_key, 0))
+        if has_expense and amount >= 501:
+            background = "#f9ded8"
+        elif has_expense or day <= date.today():
+            background = "#e4f4e8"
+        else:
+            background = "#f7f7f3"
         amount_html = (
             f"<strong>¥{amount:,}</strong>" if amount else "<span>—</span>"
         )
@@ -221,6 +222,16 @@ st.markdown(
       font-weight:700
     }
 
+    [class*="st-key-expense-row-"]{
+      border-bottom:1px solid #ddd8cf;
+      padding:.2rem 0;
+      margin:0
+    }
+    [class*="st-key-expense-row-"] p{
+      margin-top:0;
+      margin-bottom:.15rem
+    }
+
     @media(max-width:700px){
       .block-container{padding:1rem .4rem}
       .hero{padding:22px}
@@ -281,11 +292,12 @@ st.markdown(
 
       [class*="st-key-expense-row-"] p{
         font-size:.72rem;
-        line-height:1.3
+        line-height:1.15;
+        margin:0
       }
 
       [class*="st-key-expense-row-"] .category-chip{
-        padding:4px 6px;
+        padding:2px 5px;
         font-size:.65rem;
         white-space:nowrap
       }
@@ -479,7 +491,8 @@ with report_tab:
 
     st.subheader("日ごとの使用金額")
     st.caption(
-        "色が濃い日ほど、使用金額が多い日です。"
+        "今日以前の500円以下・支出なしの日は薄緑、"
+        "501円以上の日は薄赤で表示します。"
         "緑の枠は今日を表します。"
     )
     daily = (
@@ -519,8 +532,9 @@ with report_tab:
 
                 with right:
                     if st.button(
-                        "削除",
+                        "🗑️",
                         key=f"delete_{record_id}",
+                        help="この支出を削除",
                     ):
                         if delete_expense(
                             expense_sheet,
@@ -531,5 +545,3 @@ with report_tab:
                             st.warning(
                                 "対象の記録が見つかりませんでした。"
                             )
-
-                st.divider()
