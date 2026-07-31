@@ -224,12 +224,14 @@ st.markdown(
 
     [class*="st-key-expense-row-"]{
       border-bottom:1px solid #ddd8cf;
-      padding:.2rem 0;
-      margin:0
+      min-height:64px;
+      padding:.45rem 0 .55rem;
+      margin:0;
+      overflow:visible
     }
     [class*="st-key-expense-row-"] p{
-      margin-top:0;
-      margin-bottom:.15rem
+      margin:.1rem 0;
+      overflow:visible
     }
 
     @media(max-width:700px){
@@ -292,20 +294,22 @@ st.markdown(
 
       [class*="st-key-expense-row-"] p{
         font-size:.72rem;
-        line-height:1.15;
-        margin:0
+        line-height:1.25;
+        margin:.1rem 0;
+        overflow:visible
       }
 
       [class*="st-key-expense-row-"] .category-chip{
-        padding:2px 5px;
+        padding:3px 6px;
         font-size:.65rem;
+        line-height:1.2;
         white-space:nowrap
       }
 
       [class*="st-key-expense-row-"] button{
-        min-height:30px;
+        min-height:36px;
         padding:3px 5px;
-        font-size:.6rem;
+        font-size:.75rem;
         white-space:nowrap
       }
     }
