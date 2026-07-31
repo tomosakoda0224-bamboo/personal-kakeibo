@@ -270,7 +270,7 @@ st.markdown(
       [class*="st-key-expense-row-"]
       div[data-testid="stHorizontalBlock"]{
         display:grid !important;
-        grid-template-columns:minmax(0,3fr) minmax(0,2fr) 46px;
+        grid-template-columns:minmax(0,3fr) minmax(0,2fr) 50px;
         width:100% !important;
         max-width:100% !important;
         gap:4px;
