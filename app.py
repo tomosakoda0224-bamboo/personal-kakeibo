@@ -150,8 +150,11 @@ st.markdown(
     .category-chip{display:inline-block;background:#edf3ef;color:#244b3b;
       border-radius:999px;padding:7px 12px;margin:2px;font-weight:700}
     @media(max-width:700px){
-  [class*="st-key-expense-row-"] div[data-testid="stHorizontalBlock"]{flex-wrap:nowrap !important;align-items:center;gap:4px;}
-  [class*="st-key-expense-row-"] div[data-testid="column"]{min-width:0 !important;width:auto !important;}
+  
+  [class*="st-key-expense-row-"] div[data-testid="stHorizontalBlock"]{display:grid !important;grid-template-columns:minmax(0, 3fr) minmax(0, 2fr) 46px;width:100% !important;max-width:100% !important;gap:4px;align-items:center;overflow:hidden;}
+  [class*="st-key-expense-row-"] div[data-testid="column"]{width:100% !important;min-width:0 !important;flex:none !important;}
+  [class*="st-key-expense-row-"] div[data-testid="column"]:nth-child(2){text-align:right;}
+  [class*="st-key-expense-row-"] button{min-height:30px;padding:3px 5px;font-size:.6rem;white-space:nowrap;}
   [class*="st-key-expense-row-"] p{font-size:.72rem;line-height:1.3;}
   [class*="st-key-expense-row-"] .category-chip{padding:4px 6px;font-size:.65rem;white-space:nowrap;}
   [class*="st-key-expense-row-"] button{padding:4px 6px;min-height:34px;font-size:.65rem;}
@@ -283,16 +286,13 @@ with report_tab:
     daily = expenses.groupby("日付")["金額"].sum().to_dict() if not expenses.empty else {}
     render_calendar(start, end, daily)
 
-    st.subheader("カテゴリー別")
     if expenses.empty:
         st.info("この期間の支出はまだありません。")
     else:
-        totals = expenses.groupby("カテゴリー", as_index=False)["金額"].sum()
-        st.bar_chart(totals.sort_values("金額", ascending=False).set_index("カテゴリー"), color="#e66d50")
         st.subheader("支出一覧")
-    for _, row in expenses.iterrows():
-        with st.container(key=f"expense-row-{row['record_id']}"):
-            left, middle, right = st.columns([2, 2, 1])
+        for _, row in expenses.iterrows():
+            with st.container(key=f"expense-row-{row['record_id']}"):
+              left, middle, right = st.columns([2, 2, 1])
         icon = categories.get(row["カテゴリー"], "🏷️")
 
         with left:
