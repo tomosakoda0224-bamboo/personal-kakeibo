@@ -224,7 +224,7 @@ st.markdown(
 
     [class*="st-key-expense-row-"]{
       border-bottom:1px solid #ddd8cf;
-      min-height:68px;
+      min-height:72px;
       padding:.45rem 0 .55rem;
       margin:0;
       overflow:visible
