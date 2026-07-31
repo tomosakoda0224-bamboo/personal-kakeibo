@@ -150,8 +150,8 @@ st.markdown(
     .category-chip{display:inline-block;background:#edf3ef;color:#244b3b;
       border-radius:999px;padding:7px 12px;margin:2px;font-weight:700}
     @media(max-width:700px){
-  [class*="st-key-expense-row-"]div[data-testid="stHorizontalBlock"]{flex-wrap:nowrap !important;align-items:center;gap:4px;}
-  [class*="st-key-expense-row-"]div[data-testid="column"]{min-width:0 !important;width:auto !important;}
+  [class*="st-key-expense-row-"] div[data-testid="stHorizontalBlock"]{flex-wrap:nowrap !important;align-items:center;gap:4px;}
+  [class*="st-key-expense-row-"] div[data-testid="column"]{min-width:0 !important;width:auto !important;}
   [class*="st-key-expense-row-"] p{font-size:.72rem;line-height:1.3;}
   [class*="st-key-expense-row-"] .category-chip{padding:4px 6px;font-size:.65rem;white-space:nowrap;}
   [class*="st-key-expense-row-"] button{padding:4px 6px;min-height:34px;font-size:.65rem;}
@@ -291,20 +291,30 @@ with report_tab:
         st.bar_chart(totals.sort_values("金額", ascending=False).set_index("カテゴリー"), color="#e66d50")
         st.subheader("支出一覧")
         for _, row in expenses.iterrows():
-            left, middle, right = st.columns([4, 2, 1])
-            icon = categories.get(row["カテゴリー"], "🏷️")
-            with left:
-                st.markdown(
-                    f"**{html.escape(str(row['購入品']))}**  \n"
-                    f"<span class='category-chip'>{icon} {html.escape(str(row['カテゴリー']))}</span>",
-                    unsafe_allow_html=True,
-                )
-            with middle:
-                st.markdown(f"**{money(row['金額'])}**  \n{row['日付']}")
-            with right:
-                if st.button("削除", key=f"delete_{row['record_id']}"):
-                    if delete_expense(expense_sheet, str(row["record_id"])):
-                        st.rerun()
-                    else:
-                        st.warning("対象の記録が見つかりませんでした。")
-            st.divider()
+    with st.container(key=f"expense-row-{row['record_id']}"):
+        left, middle, right = st.columns([3, 2, 1])
+        icon = categories.get(row["カテゴリー"], "🏷️")
+
+        with left:
+            st.markdown(
+                f"**{html.escape(str(row['購入品']))}**  \n"
+                f"<span class='category-chip'>"
+                f"{icon} {html.escape(str(row['カテゴリー']))}"
+                f"</span>",
+                unsafe_allow_html=True,
+            )
+
+        with middle:
+            st.markdown(
+                f"**{money(row['金額'])}**  \n"
+                f"{row['日付']}"
+            )
+
+        with right:
+            if st.button("削除", key=f"delete_{row['record_id']}"):
+                if delete_expense(expense_sheet, str(row["record_id"])):
+                    st.rerun()
+                else:
+                    st.warning("対象の記録が見つかりませんでした。")
+
+        st.divider()
