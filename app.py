@@ -234,6 +234,21 @@ st.markdown(
       overflow:visible
     }
 
+    [class*="st-key-period-nav-"] button{
+      background:#2f7257 !important;
+      color:#fff !important;
+      border:1px solid #2f7257 !important;
+      font-weight:700
+    }
+    [class*="st-key-period-nav-"] button:hover{
+      background:#245a45 !important;
+      border-color:#245a45 !important;
+      color:#fff !important
+    }
+    [class*="st-key-period-nav-"] button p{
+      color:#fff !important
+    }
+
     @media(max-width:700px){
       .block-container{padding:1rem .4rem}
       .hero{padding:22px}
@@ -463,19 +478,27 @@ with report_tab:
     previous, title, following = st.columns([1, 4, 1])
 
     with previous:
-        if st.button("← 前期間", use_container_width=True):
+        if st.button(
+            "← 前期間",
+            key="period-nav-prev",
+            use_container_width=True,
+        ):
             st.session_state.period_offset -= 1
             st.rerun()
 
     with title:
         st.markdown(
             f"<h3 style='text-align:center;margin:.35rem 0'>"
-            f"{start:%Y年%m月%d日} 〜 {end:%Y年%m月%d日}</h3>",
+            f"{end.year}年{end.month}月</h3>",
             unsafe_allow_html=True,
         )
 
     with following:
-        if st.button("次期間 →", use_container_width=True):
+        if st.button(
+            "次期間 →",
+            key="period-nav-next",
+            use_container_width=True,
+        ):
             st.session_state.period_offset += 1
             st.rerun()
 
