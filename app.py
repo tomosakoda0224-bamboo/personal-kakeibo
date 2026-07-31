@@ -21,19 +21,19 @@ st.set_page_config(page_title="わたしの家計簿", page_icon="👛", layout=
 
 
 def period_for(anchor):
-    if anchor.day >= 27:
-        start = anchor.replace(day=27)
+    if anchor.day >= 28:
+        start = anchor.replace(day=28)
     else:
         previous_month = anchor.replace(day=1) - timedelta(days=1)
-        start = previous_month.replace(day=27)
+        start = previous_month.replace(day=28)
     next_month = (start.replace(day=1) + timedelta(days=32)).replace(day=1)
-    return start, next_month.replace(day=26)
+    return start, next_month.replace(day=27)
 
 
 def shift_period(start, months):
     month_index = start.year * 12 + start.month - 1 + months
-    shifted = date(month_index // 12, month_index % 12 + 1, 27)
-    return shifted, (shifted.replace(day=1) + timedelta(days=32)).replace(day=26)
+    shifted = date(month_index // 12, month_index % 12 + 1, 28)
+    return shifted, (shifted.replace(day=1) + timedelta(days=32)).replace(day=27)
 
 
 def money(value):
@@ -154,7 +154,7 @@ st.markdown(
       .cal-cell{min-height:65px;padding:8px}.cal-cell strong{font-size:.75rem}}
     </style>
     <div class="hero"><h1>👛 わたしの家計簿</h1>
-    <p>Googleスプレッドシートに保存。27日から翌26日までをひと目で。</p></div>
+    <p>Googleスプレッドシートに保存。28日から翌27日までをひと目で。</p></div>
     """,
     unsafe_allow_html=True,
 )
