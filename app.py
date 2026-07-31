@@ -224,7 +224,7 @@ st.markdown(
 
     [class*="st-key-expense-row-"]{
       border-bottom:1px solid #ddd8cf;
-      padding:.2rem 0;
+      padding:.4rem 0;
       margin:0
     }
     [class*="st-key-expense-row-"] p{
