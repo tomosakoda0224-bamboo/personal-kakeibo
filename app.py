@@ -149,9 +149,29 @@ st.markdown(
     .cal-cell span{color:#aaa}.cal-cell.today{outline:3px solid #2f7257}
     .category-chip{display:inline-block;background:#edf3ef;color:#244b3b;
       border-radius:999px;padding:7px 12px;margin:2px;font-weight:700}
-    @media(max-width:700px){.block-container{padding:1rem .5rem}.hero{padding:22px}
+    @media(max-width:700px){
+  [class*="st-key-expense-row-"]div[data-testid="stHorizontalBlock"]{flex-wrap:nowrap !important;align-items:center;gap:4px;}
+  [class*="st-key-expense-row-"]div[data-testid="column"]{min-width:0 !important;width:auto !important;}
+  [class*="st-key-expense-row-"] p{font-size:.72rem;line-height:1.3;}
+  [class*="st-key-expense-row-"] .category-chip{padding:4px 6px;font-size:.65rem;white-space:nowrap;}
+  [class*="st-key-expense-row-"] button{padding:4px 6px;min-height:34px;font-size:.65rem;}
+  .block-container{padding:1rem .5rem}.hero{padding:22px}
       .calendar-grid{grid-template-columns:repeat(7,minmax(0, 1fr));gap:3px}
-      .cal-cell{min-width:0;min-height:58px;padding:5px 2px;text-align:center;align-items:center;}.cal-cell small{font-size:.68rem;}.cal-cell strong{width:100%;font-size:.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}
+      .cal-cell{min-width:0;min-height:58px;padding:5px 2px;text-align:center;align-items:center;}.cal-cell small{font-size:.68rem;}.cal-cell strong{width:100%;font-size:.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}div[data-testid="stMetricLabel"] p{
+    font-size:.75rem !important;
+    line-height:1.2;
+  }
+
+  /* 金額や日数 */
+  div[data-testid="stMetricValue"]{
+    font-size:1.65rem !important;
+    line-height:1.2;
+  }
+
+  /* 集計カード自体を少しコンパクトにする */
+  div[data-testid="stMetric"]{
+    padding:12px 14px;
+  }}
     </style>
     <div class="hero"><h1>👛 わたしの家計簿</h1>
     <p>Googleスプレッドシートに保存。28日から翌27日までをひと目で。</p></div>
