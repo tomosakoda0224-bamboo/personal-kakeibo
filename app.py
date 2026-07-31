@@ -149,9 +149,9 @@ st.markdown(
     .cal-cell span{color:#aaa}.cal-cell.today{outline:3px solid #2f7257}
     .category-chip{display:inline-block;background:#edf3ef;color:#244b3b;
       border-radius:999px;padding:7px 12px;margin:2px;font-weight:700}
-    @media(max-width:700px){.block-container{padding:1rem .8rem}.hero{padding:22px}
-      .calendar-grid{grid-template-columns:repeat(4,1fr);gap:6px}
-      .cal-cell{min-height:65px;padding:8px}.cal-cell strong{font-size:.75rem}}
+    @media(max-width:700px){.block-container{padding:1rem .5rem}.hero{padding:22px}
+      .calendar-grid{grid-template-columns:repeat(7,minmax(0, 1fr));gap:3px}
+      .cal-cell{min-width:0;min-height:58px;padding:5px 2px;text-align:center;align-items:center;}.cal-cell small{font-size:.68rem;}.cal-cell strong{width:100%;font-size:.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}
     </style>
     <div class="hero"><h1>👛 わたしの家計簿</h1>
     <p>Googleスプレッドシートに保存。28日から翌27日までをひと目で。</p></div>
