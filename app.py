@@ -291,7 +291,7 @@ with report_tab:
         st.bar_chart(totals.sort_values("金額", ascending=False).set_index("カテゴリー"), color="#e66d50")
         st.subheader("支出一覧")
         for _, row in expenses.iterrows():
-    with st.container(key=f"expense-row-{row['record_id']}"):
+        with st.container(key=f"expense-row-{row['record_id']}"):
         left, middle, right = st.columns([3, 2, 1])
         icon = categories.get(row["カテゴリー"], "🏷️")
 
